@@ -16,14 +16,3 @@
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
-
-.block {
-  border: 1px solid black;
-  border-radius: 2px;
-  font-family: Helvetica;
-  font-weight: bold;
-  font-size: 13px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
