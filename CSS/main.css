@@ -13,6 +13,4 @@
   color: #fff;
   border: 6px solid white;
   border-radius: 10px;
-  display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
