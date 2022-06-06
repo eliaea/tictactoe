@@ -1,0 +1,19 @@
+version: "3"
+services:
+  database:
+    image: "mongo"
+    container_name: "my-mongo-container"
+    environment:
+      MONGO_INITDB_DATABASE: temp-database
+      MONGO_INITDB_ROOT_USERNAME: temp-root
+      MONGO_INITDB_ROOT_PASSWORD: temp
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - "27018:27017"
+
+  # mongo-express:
+  #   image: mongo-express
+  #   ports:
+  #     - 8081:8081
+  #   environment:
