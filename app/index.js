@@ -4,7 +4,7 @@ const PORT = 4500
 
 
 // adding routes
-const todoRouter = require('./routes/todo')
+const todoRouter = require('./routes/todo.routes')
 
 const app = express()
 
