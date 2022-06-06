@@ -21,6 +21,8 @@ const getTodosIndex = (req, res) => {
     const { test } = req.query
 
     console.log(index, test)
+
+    res.status(200).json({ message: "it worked" })
 }
 
 module.exports = {
