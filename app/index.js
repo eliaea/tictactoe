@@ -6,7 +6,13 @@ const app = express()
 const PORT = 4500
 
 try {
-    mongoose.connect('mongodb://root:example@localhost:27018', {})
+    mongoose.connect('mongodb://127.0.0.1:27018/epita', {
+        authSource: "admin",
+        user: "root",
+        pass: "example",
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
     console.log('Connected to database')
 } catch (error) {
     console.log('Error connecting to db' + error)
