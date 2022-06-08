@@ -22,9 +22,6 @@ const editMessage = async (req, res) => {
     const { name } = req.params
     let body = req.body
 
-    console.log(name, body)
-    message = await messageModel.findOne({ name: name })
-
     messageModel.where({ name: name }).update({ $set: { name: body.name } }).exec();
 
     messages = await messageModel.find({})
@@ -32,8 +29,21 @@ const editMessage = async (req, res) => {
     return res.status(200).json({ message: "updated field", messages })
 }
 
+
+const deleteMessage = async (req, res) => {
+    const { name } = req.params
+    let body = req.body
+
+    messageModel.deleteOne({ name: name }).exec()
+
+    messages = await messageModel.find({})
+
+    return res.status(200).json({ message: "deleted field", messages })
+}
+
 module.exports = {
     getMessages,
     addMessage,
-    editMessage
+    editMessage,
+    deleteMessage
 }
