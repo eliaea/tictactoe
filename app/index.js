@@ -32,7 +32,7 @@ app.use(express.json())
 app.use('/', todosRouter)
 app.use('/', testRouter)
 app.use('/', messageRouter)
-app.user('/', authRouter)
+app.use('/', authRouter)
 
 app.listen(PORT, () => {
     console.log('Server running on http://127.0.0.1:' + PORT)
