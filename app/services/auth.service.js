@@ -27,6 +27,12 @@ const register = async (req, res) => {
 }
 
 
+/*
+ * Params: Email and Password
+ * Check if information are good (use bcrypt)
+ * if it's good send back the user
+ * try to add session to express
+ */
 const login = async (req, res) => {
     const { email, password } = req.body
 
@@ -48,12 +54,6 @@ const login = async (req, res) => {
 
             req.session.user = {
                 "_id": user._id,
-                "username": user.username,
-                "email": user.email,
-                "active": user.active,
-                "created_at": user.created_at,
-                "updated_at": user.updated_at,
-                "__v": user.__v
             }
 
             return res.status(200).json({ 'msg': 'User identified !' })

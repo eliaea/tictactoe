@@ -24,6 +24,16 @@ const testRouter = require('./routes/test.routes')
 const messageRouter = require('./routes/messages.routes')
 const authRouter = require('./routes/authRoutes.routes')
 
+app.use(session({
+    secret: "1234",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        httpOnly: true
+    }
+}))
+
 app.use(morgan('dev'))
 app.use(express.json())
 
