@@ -53,7 +53,7 @@ const login = async (req, res) => {
             }
 
             req.session.user = {
-                "_id": user._id,
+                "_id": user._id
             }
 
             return res.status(200).json({ 'msg': 'User identified !' })
@@ -65,9 +65,22 @@ const login = async (req, res) => {
     }
 }
 
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
     if (req.session.user) {
-        return res.status(200).json(req.session.user)
+
+        const user = await userModel.findById(req.session.user._id, {
+            'password': 0
+        })
+
+        if (!user) {
+            return res.status(500).json({ "msg": "You are not authenticated !" })
+        }
+
+        if (!user.active) {
+            return res.status(500).json({ 'msg': 'User not active !' })
+        }
+
+        return res.status(200).json(user)
     }
 
     return res.status(500).json({ "msg": "You are not authenticated !" })

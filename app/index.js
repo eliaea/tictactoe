@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const session = require('express-session')
 
 const app = express()
 const PORT = 4500
@@ -39,10 +40,10 @@ app.use(express.json())
 
 
 // Adding routes
-app.use('/', todosRouter)
-app.use('/', testRouter)
-app.use('/', messageRouter)
-app.use('/', authRouter)
+app.use('/todo', todosRouter)
+app.use('/test', testRouter)
+app.use('/message', messageRouter)
+app.use('/auth', authRouter)
 
 app.listen(PORT, () => {
     console.log('Server running on http://127.0.0.1:' + PORT)
