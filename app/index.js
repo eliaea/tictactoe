@@ -22,6 +22,7 @@ try {
 const todosRouter = require('./routes/todos.routes')
 const testRouter = require('./routes/test.routes')
 const messageRouter = require('./routes/messages.routes')
+const authRouter = require('./routes/authRoutes.routes')
 
 app.use(morgan('dev'))
 app.use(express.json())
@@ -31,6 +32,7 @@ app.use(express.json())
 app.use('/', todosRouter)
 app.use('/', testRouter)
 app.use('/', messageRouter)
+app.user('/', authRouter)
 
 app.listen(PORT, () => {
     console.log('Server running on http://127.0.0.1:' + PORT)
