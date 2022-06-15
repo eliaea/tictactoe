@@ -1,9 +1,31 @@
 const mongoose = require('mongoose')
 
-const User = mongoose.model('User', {
-    email: String,
-    password: String,
-    status: Number
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        trim: true,
+    },
+    email: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        required: 'Email address is required',
+        trim: true
+    },
+    password: {
+        type: String,
+        required: 'Password is required',
+        trim: true
+    },
+    active: {
+        type: Boolean,
+        default: 1
+    }
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
 })
 
-module.exports = Message
+module.exports = mongoose.model('User', userSchema)
