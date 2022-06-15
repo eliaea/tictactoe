@@ -32,7 +32,6 @@ const editMessage = async (req, res) => {
 
 const deleteMessage = async (req, res) => {
     const { name } = req.params
-    let body = req.body
 
     messageModel.deleteOne({ name: name }).exec()
 
