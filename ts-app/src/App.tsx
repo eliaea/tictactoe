@@ -1,12 +1,17 @@
-import Animal from "./Components/Animal";
-import Greetings from "./Components/Greetings";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import Resources from "./Pages/Resources";
 
 function App() {
   return (
-    <div>
-      <Greetings firstname="temp" age={10} />
-      <Animal />
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/resources" element={<Resources />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
