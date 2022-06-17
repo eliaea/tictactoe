@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface Post {
   userId: number;
@@ -9,33 +8,36 @@ export interface Post {
 }
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      await axios
-        .get("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => {
-          setPosts(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+      const responseJson = await res.json();
+
+      setPosts(responseJson);
+      setIsLoading(false);
     };
 
     fetchData();
   }, []);
 
   return (
-    <ul>
-      {posts.map((post: Post) => (
-        <div key={post.id}>
-          <p>Post # {post.id}</p>
-          <li>Title: {post.title}</li>
-          <li>Body: {post.body}</li>
-        </div>
-      ))}
-    </ul>
+    <>
+      {isLoading && <p>Please wait data is being fetched</p>}
+      {!isLoading && (
+        <ul>
+          {posts.map((post) => (
+            <div key={post.id}>
+              <p>Post # {post.id}</p>
+              <li>Title: {post.title}</li>
+              <li>Body: {post.body}</li>
+            </div>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
