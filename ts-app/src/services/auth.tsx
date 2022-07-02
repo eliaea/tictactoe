@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 
 export const register = async (data: registerParams): Promise<boolean> => {
   try {
-    await axios.post("http://127.0.0.1:4500/register", data);
+    await axios.post("http://127.0.0.1:4500/auth/register", data);
     return true;
   } catch (error: any) {
     if ((error as AxiosError).response?.status === 500) {
@@ -17,7 +17,7 @@ export const register = async (data: registerParams): Promise<boolean> => {
 
 export const login = async (data: loginParams) => {
   try {
-    const res = await axios.post("http://127.0.0.1:4500/login", data);
+    const res = await axios.post("http://127.0.0.1:4500/auth/login", data);
 
     return {
       status: true,
