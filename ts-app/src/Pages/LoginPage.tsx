@@ -33,7 +33,7 @@ const LoginPage = () => {
     <form onSubmit={onSubmitHandler}>
       <h1>Login to service</h1>
 
-      {msg != "" && <div>{msg}</div>}
+      {msg !== "" && <div>{msg}</div>}
 
       <div className="form-row">
         <label>Email</label>
