@@ -1,27 +1,70 @@
-import { Link, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./Pages/Home";
-import LoginPage from "./Pages/LoginPage";
-import ResgiterPage from "./Pages/ResgiterPage";
-import Resources from "./Pages/Resources";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+import Home from "./Pages/Home";
+import ResgiterPage from "./Pages/ResgiterPage";
+import LoginPage from "./Pages/LoginPage";
+import MessagesPage from "./Pages/MessagesPage";
+import MessagesDeletePage from "./Pages/MessagesDeletePage";
+import MessagesEditPage from "./Pages/MessagesEditPage";
+import Default from "./layouts/Default";
+import Auth from "./layouts/Auth";
+
+const App = () => {
   return (
     <>
-      <div id="nav">
-        <Link to="/">Home</Link>
-        <Link to="/resources">Resources</Link>
-        <Link to="/register">Register</Link>
-        <Link to="/login">Login</Link>
-      </div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/register" element={<ResgiterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <Default>
+              <Home />
+            </Default>
+          }
+        />
+        <Route
+          path="/messages"
+          element={
+            <Default>
+              <MessagesPage />
+            </Default>
+          }
+        />
+        <Route
+          path="/messages/:messageId/delete"
+          element={
+            <Default>
+              <MessagesDeletePage />
+            </Default>
+          }
+        />
+        <Route
+          path="/messages/:messageId/edit"
+          element={
+            <Default>
+              <MessagesEditPage />
+            </Default>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Auth>
+              <ResgiterPage />
+            </Auth>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Auth>
+              <LoginPage />
+            </Auth>
+          }
+        />
       </Routes>
     </>
   );
-}
+};
 
 export default App;
