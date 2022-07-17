@@ -70,7 +70,7 @@ const getUser = async (req, res) => {
 
         const user = await userModel.findById(req.session.user._id, {
             'password': 0
-        })
+        }).populate('messages')
 
         if (!user) {
             return res.status(500).json({ "msg": "You are not authenticated !" })
@@ -86,8 +86,17 @@ const getUser = async (req, res) => {
     return res.status(500).json({ "msg": "You are not authenticated !" })
 }
 
+const logout = (req, res) => {
+    if (req.session.user) {
+        delete req.session
+    }
+
+    return res.status(200).json({ 'msg': 'Disconnexion !' })
+}
+
 module.exports = {
     register,
     login,
-    getUser
+    getUser,
+    logout
 }

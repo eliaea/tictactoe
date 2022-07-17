@@ -2,9 +2,7 @@ const express = require('express')
 const messageModel = require('../models/messageModel')
 
 const getMessages = async (req, res) => {
-    messages = await messageModel.find({})
-    console.log(messages)
-
+    messages = await messageModel.find({}).sort({ created_at: 'desc' }).populate('user')
     return res.status(200).json(messages)
 }
 
@@ -17,6 +15,7 @@ const getMessageByID = async (req, res) => {
 
 const addMessage = async (req, res) => {
     const { message } = req.body
+    message.user = req.session.user._id
 
     const messageObj = new messageModel(message)
     await messageObj.save()
@@ -24,27 +23,25 @@ const addMessage = async (req, res) => {
 
 }
 
-
 const editMessage = async (req, res) => {
-    const { name } = req.params
-    let body = req.body
+    const { name } = req.body.message
+    const { messageId } = req.params
 
-    messageModel.where({ name: name }).update({ $set: { name: body.name } }).exec();
+    const message = await messageModel.findByIdAndUpdate(messageId, {
+        name: name
+    }, {
+        new: true
+    })
 
-    messages = await messageModel.find({})
-
-    return res.status(200).json({ message: "updated field", messages })
+    return res.status(200).json(message)
 }
 
 
 const deleteMessage = async (req, res) => {
-    const { name } = req.params
+    const { messageId } = req.params
 
-    messageModel.deleteOne({ name: name }).exec()
-
-    messages = await messageModel.find({})
-
-    return res.status(200).json({ message: "deleted field", messages })
+    await messageModel.findOneAndDelete({ _id: messageId })
+    return res.status(200).json({ "msg": "Message well deleted !" })
 }
 
 module.exports = {
